@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Dashboard – Contrato 032/2025 · SERVAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root{
   --navy:#002d5a; --navy-bg:#e8eef5;
@@ -524,20 +523,24 @@ table.t tr.tfoot-r td:first-child{text-align:left}
   </table>
 </div>
 
+
 <!-- ══ GRÁFICOS ══ -->
 <div class="sec">Empenhos × Pagamentos por Mês</div>
 <div class="charts-grid">
   <div class="chart-card">
     <div class="chart-title">Empenhos × Pagamentos por Mês</div>
-    <div class="chart-wrap"><canvas id="cMes"></canvas></div>
+    <div class="chart-wrap"><canvas id="cMes" width="400" height="210"></canvas></div>
+    <div class="chart-legend" id="leg1"></div>
   </div>
   <div class="chart-card">
     <div class="chart-title">Composição da Execução</div>
-    <div class="chart-wrap"><canvas id="cComp"></canvas></div>
+    <div class="chart-wrap"><canvas id="cComp" width="400" height="210"></canvas></div>
+    <div class="chart-legend" id="leg2"></div>
   </div>
   <div class="chart-card">
     <div class="chart-title">Utilização dos Limites Autorizados</div>
-    <div class="chart-wrap"><canvas id="cLim"></canvas></div>
+    <div class="chart-wrap"><canvas id="cLim" width="400" height="210"></canvas></div>
+    <div class="chart-legend" id="leg3"></div>
   </div>
 </div>
 
@@ -549,86 +552,216 @@ table.t tr.tfoot-r td:first-child{text-align:left}
   <span id="ft-dt"></span>
 </div>
 
+<style>
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;justify-content:center}
+.leg-i{display:flex;align-items:center;gap:5px;font-size:10.5px;color:#5a6474}
+.leg-sq{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+</style>
+
 <script>
+// ── utilitários ──────────────────────────────────────────────────────────────
 const hoje = new Date();
 const dd=String(hoje.getDate()).padStart(2,'0');
-const mm=String(hoje.getMonth()+1).padStart(2,'0');
+const mm2=String(hoje.getMonth()+1).padStart(2,'0');
 const aa=hoje.getFullYear();
-document.getElementById('hdr-dt').textContent = dd+'/'+mm+'/'+aa;
+document.getElementById('hdr-dt').textContent = dd+'/'+mm2+'/'+aa;
 document.getElementById('ft-dt').textContent = 'Gerado em ' +
   hoje.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
 
-const gc='rgba(0,0,0,0.05)', tc='#5a6474';
+function brlFmt(v){
+  return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function brlShort(v){
+  if(v>=1e6) return 'R$ '+(v/1e6).toFixed(1)+'M';
+  if(v>=1e3) return 'R$ '+(v/1e3).toFixed(0)+'k';
+  return 'R$ '+v.toFixed(0);
+}
+function lerp(a,b,t){ return a+(b-a)*t; }
 
-// Chart 1 — Empenhos × Pagamentos por mês
-new Chart(document.getElementById('cMes'),{
-  type:'bar',
-  data:{
-    labels:['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26','Jun/26'],
-    datasets:[
-      { label:'Empenho', data:[0, 9593210.73, 0, 6395473.82, 1712040.35, 3197736.91],
-        backgroundColor:'rgba(0,45,90,.75)', borderRadius:4 },
-      { label:'Pago',    data:[2437433.04, 2825229.32, 2838747.18, 2871571.63, 2879667.38, 0],
-        backgroundColor:'rgba(26,110,60,.75)', borderRadius:4 },
-    ]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'bottom',labels:{boxWidth:12,padding:12}},
-      tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': R$ '+ctx.parsed.y.toLocaleString('pt-BR',{minimumFractionDigits:0})}}
-    },
-    scales:{
-      x:{ticks:{font:{size:11},color:tc},grid:{color:gc}},
-      y:{ticks:{font:{size:10},color:tc,callback:v=>'R$ '+(v/1e6).toFixed(1)+'M'},grid:{color:gc}}
-    }
-  }
-});
+// ── GRÁFICO 1 — barras agrupadas ─────────────────────────────────────────────
+(function(){
+  const cv = document.getElementById('cMes');
+  const dpr = window.devicePixelRatio||1;
+  const W = cv.offsetWidth||cv.parentElement.offsetWidth||380;
+  const H = 210;
+  cv.width  = W * dpr; cv.height = H * dpr;
+  cv.style.width = W+'px'; cv.style.height = H+'px';
+  const cx = cv.getContext('2d');
+  cx.scale(dpr,dpr);
 
-// Chart 2 — Composição doughnut
-new Chart(document.getElementById('cComp'),{
-  type:'doughnut',
-  data:{
-    labels:['Pago','Saldo s/ empenho','Saldo limite empenho'],
-    datasets:[{
-      data:[13852648.55,7045813.26,4683433.47],
-      backgroundColor:['#1a6e3c','#b56d00','#002d5a'],
-      borderWidth:2,borderColor:'#fff',hoverOffset:8
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,cutout:'62%',
-    plugins:{
-      legend:{position:'bottom',labels:{boxWidth:12,padding:14}},
-      tooltip:{callbacks:{label:ctx=>' R$ '+ctx.parsed.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}}
-    }
-  }
-});
+  const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+  const dEmp  = [0, 9593210.73, 0, 6395473.82, 1712040.35, 3197736.91];
+  const dPago = [2437433.04, 2825229.32, 2838747.18, 2871571.63, 2879667.38, 0];
+  const maxV  = Math.max(...dEmp,...dPago) * 1.12;
 
-// Chart 3 — Utilização dos limites (barras horizontais empilhadas)
-new Chart(document.getElementById('cLim'),{
-  type:'bar',
-  data:{
-    labels:['Empenho\n(Lim. R$ 25.581.895,28)','Pagamento\n(Lim. R$ 22.384.158,37)'],
-    datasets:[
-      { label:'Realizado', data:[20898461.81,13852648.55],
-         backgroundColor:['rgba(0,45,90,.85)','rgba(26,110,60,.85)'], borderRadius:4 },
-      { label:'Saldo do limite', data:[4683433.47,8531509.82],
-         backgroundColor:['rgba(200,200,210,.55)','rgba(200,200,210,.55)'], borderRadius:4 },
-    ]
-  },
-  options:{
-    indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'bottom',labels:{boxWidth:12,padding:12}},
-      tooltip:{callbacks:{label:ctx=>' R$ '+ctx.parsed.x.toLocaleString('pt-BR',{minimumFractionDigits:0})}}
-    },
-    scales:{
-      x:{stacked:true,grid:{color:gc},ticks:{callback:v=>'R$ '+(v/1e6).toFixed(0)+'M',font:{size:10},color:tc}},
-      y:{stacked:true,grid:{color:gc},ticks:{font:{size:10},color:tc}}
-    }
+  const padL=46, padR=10, padT=14, padB=46;
+  const gW = W-padL-padR;
+  const gH = H-padT-padB;
+  const n  = labels.length;
+  const groupW = gW/n;
+  const bW = groupW*0.35;
+  const gap = groupW*0.05;
+
+  // grid linhas
+  cx.strokeStyle='rgba(0,0,0,0.06)'; cx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y = padT + gH*(1-i/4);
+    cx.beginPath(); cx.moveTo(padL,y); cx.lineTo(W-padR,y); cx.stroke();
+    const v = maxV*i/4;
+    cx.fillStyle='#9aa3b2'; cx.font='9px Inter,sans-serif';
+    cx.textAlign='right';
+    cx.fillText(brlShort(v), padL-4, y+3.5);
   }
-});
+
+  // barras
+  labels.forEach((lbl,i)=>{
+    const x0 = padL + groupW*i + groupW/2 - bW - gap/2;
+    // empenho
+    const hEmp = dEmp[i]/maxV*gH;
+    if(dEmp[i]>0){
+      cx.fillStyle='rgba(0,45,90,0.80)';
+      cx.beginPath();
+      const rx=4;
+      const bx=x0, by=padT+gH-hEmp, bh=hEmp, bww=bW;
+      cx.roundRect(bx,by,bww,bh,[rx,rx,0,0]);
+      cx.fill();
+    }
+    // pago
+    const hPag = dPago[i]/maxV*gH;
+    if(dPago[i]>0){
+      cx.fillStyle='rgba(26,110,60,0.80)';
+      const bx=x0+bW+gap;
+      cx.beginPath();
+      cx.roundRect(bx,padT+gH-hPag,bW,hPag,[4,4,0,0]);
+      cx.fill();
+    }
+    // label eixo x
+    cx.fillStyle='#5a6474'; cx.font='10px Inter,sans-serif'; cx.textAlign='center';
+    cx.fillText(lbl, padL+groupW*i+groupW/2, H-padB+14);
+  });
+
+  // legenda
+  const leg = document.getElementById('leg1');
+  [['rgba(0,45,90,0.80)','Empenho'],['rgba(26,110,60,0.80)','Pago']].forEach(([c,l])=>{
+    leg.innerHTML+=`<div class="leg-i"><div class="leg-sq" style="background:${c}"></div>${l}</div>`;
+  });
+})();
+
+// ── GRÁFICO 2 — doughnut ─────────────────────────────────────────────────────
+(function(){
+  const cv = document.getElementById('cComp');
+  const dpr = window.devicePixelRatio||1;
+  const W = cv.offsetWidth||cv.parentElement.offsetWidth||380;
+  const H = 210;
+  cv.width=W*dpr; cv.height=H*dpr;
+  cv.style.width=W+'px'; cv.style.height=H+'px';
+  const cx = cv.getContext('2d');
+  cx.scale(dpr,dpr);
+
+  const vals   = [13852648.55, 7045813.26, 4683433.47];
+  const colors = ['#1a6e3c', '#b56d00', '#002d5a'];
+  const labels = ['Pago', 'Saldo s/ empenho', 'Saldo limite empenho'];
+  const total  = vals.reduce((a,b)=>a+b,0);
+
+  const cx0=W/2, cy0=H/2-8, R=Math.min(W,H)/2-18, r=R*0.60;
+  let angle = -Math.PI/2;
+
+  vals.forEach((v,i)=>{
+    const sweep = (v/total)*Math.PI*2;
+    cx.beginPath();
+    cx.moveTo(cx0,cy0);
+    cx.arc(cx0,cy0,R,angle,angle+sweep);
+    cx.closePath();
+    cx.fillStyle=colors[i];
+    cx.fill();
+    cx.strokeStyle='#fff'; cx.lineWidth=2; cx.stroke();
+    angle+=sweep;
+  });
+
+  // buraco central
+  cx.beginPath(); cx.arc(cx0,cy0,r,0,Math.PI*2);
+  cx.fillStyle='#fff'; cx.fill();
+
+  // texto central
+  cx.fillStyle='#002d5a'; cx.font='bold 11px Inter,sans-serif'; cx.textAlign='center';
+  cx.fillText(brlShort(total), cx0, cy0+4);
+
+  // legenda
+  const leg = document.getElementById('leg2');
+  vals.forEach((v,i)=>{
+    const pct = (v/total*100).toFixed(1);
+    leg.innerHTML+=`<div class="leg-i"><div class="leg-sq" style="background:${colors[i]}"></div>${labels[i]} (${pct}%)</div>`;
+  });
+})();
+
+// ── GRÁFICO 3 — barras horizontais empilhadas ─────────────────────────────────
+(function(){
+  const cv = document.getElementById('cLim');
+  const dpr = window.devicePixelRatio||1;
+  const W = cv.offsetWidth||cv.parentElement.offsetWidth||380;
+  const H = 210;
+  cv.width=W*dpr; cv.height=H*dpr;
+  cv.style.width=W+'px'; cv.style.height=H+'px';
+  const cx = cv.getContext('2d');
+  cx.scale(dpr,dpr);
+
+  const real  = [20898461.81, 13852648.55];
+  const saldo = [4683433.47, 8531509.82];
+  const rowLbls = ['Empenho\n(Lim: R$ 25,58M)', 'Pagamento\n(Lim: R$ 22,38M)'];
+  const maxV = Math.max(...real.map((v,i)=>v+saldo[i]))*1.05;
+  const colors = [['#002d5a','#c8d8ea'],['#1a6e3c','#b8d8c8']];
+
+  const padL=16, padR=16, padT=16, padB=60;
+  const gW=W-padL-padR;
+  const n=real.length;
+  const bH=32, gap=(H-padT-padB-n*bH)/(n+1);
+
+  real.forEach((rv,i)=>{
+    const y0 = padT + gap*(i+1) + bH*i;
+    const totalW = gW;
+    const rW = rv/maxV*totalW;
+    const sW = saldo[i]/maxV*totalW;
+
+    // barra realizado
+    cx.fillStyle=colors[i][0];
+    cx.beginPath(); cx.roundRect(padL,y0,rW,bH,[4,4,0,0]); cx.fill();
+
+    // valor dentro da barra
+    if(rW>60){
+      cx.fillStyle='#fff'; cx.font='bold 10px IBM Plex Mono,monospace';
+      cx.textAlign='left';
+      cx.fillText(brlShort(rv), padL+8, y0+bH/2+4);
+    }
+
+    // barra saldo
+    cx.fillStyle=colors[i][1];
+    cx.beginPath(); cx.roundRect(padL+rW,y0,sW,bH,[0,4,4,0]); cx.fill();
+
+    // label da linha (multiline)
+    const parts = rowLbls[i].split('\n');
+    cx.fillStyle='#5a6474'; cx.font='10px Inter,sans-serif'; cx.textAlign='left';
+    cx.fillText(parts[0], padL, y0+bH+14);
+    if(parts[1]) cx.fillText(parts[1], padL, y0+bH+26);
+  });
+
+  // eixo X ticks
+  const ticks=4;
+  for(let i=0;i<=ticks;i++){
+    const v=maxV*i/ticks;
+    const x=padL+gW*i/ticks;
+    cx.fillStyle='#9aa3b2'; cx.font='9px Inter,sans-serif'; cx.textAlign='center';
+    cx.fillText(brlShort(v), x, H-8);
+    cx.strokeStyle='rgba(0,0,0,0.05)'; cx.lineWidth=1;
+    cx.beginPath(); cx.moveTo(x,padT); cx.lineTo(x,H-padB+10); cx.stroke();
+  }
+
+  // legenda
+  const leg = document.getElementById('leg3');
+  [['#002d5a','Empenho realizado'],['#c8d8ea','Saldo limite empenho'],
+   ['#1a6e3c','Pagamento realizado'],['#b8d8c8','Saldo limite pagamento']].forEach(([c,l])=>{
+    leg.innerHTML+=`<div class="leg-i"><div class="leg-sq" style="background:${c}"></div>${l}</div>`;
+  });
+})();
 </script>
 </body>
 </html>
