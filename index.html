@@ -560,16 +560,16 @@ document.getElementById('ft-dt').textContent = 'Gerado em ' +
 
 const gc='rgba(0,0,0,0.05)', tc='#5a6474';
 
-// Chart 1 — Empenhos × Pagamentos (meses em comum)
+// Chart 1 — Empenhos × Pagamentos por mês
 new Chart(document.getElementById('cMes'),{
   type:'bar',
   data:{
-    labels:['Fevereiro/2026', 'Abril/2026', 'Maio/2026', 'Junho/2026'],
+    labels:['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26','Jun/26'],
     datasets:[
-      { label:'Empenho (bruto)', data:[9593210.73, 6395473.82, 3197736.91, 3197736.91],
-         backgroundColor:'rgba(0,45,90,.75)', borderRadius:4 },
-      { label:'Pago', data:[243,
-         backgroundColor:'rgba(26,110,60,.75)', borderRadius:4 },
+      { label:'Empenho', data:[0, 9593210.73, 0, 6395473.82, 1712040.35, 3197736.91],
+        backgroundColor:'rgba(0,45,90,.75)', borderRadius:4 },
+      { label:'Pago',    data:[2437433.04, 2825229.32, 2838747.18, 2871571.63, 2879667.38, 0],
+        backgroundColor:'rgba(26,110,60,.75)', borderRadius:4 },
     ]
   },
   options:{
