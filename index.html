@@ -525,22 +525,95 @@ table.t tr.tfoot-r td:first-child{text-align:left}
 
 
 <!-- ══ GRÁFICOS ══ -->
-<div class="sec">Empenhos × Pagamentos por Mês</div>
+<div class="sec">Análise Gráfica</div>
 <div class="charts-grid">
   <div class="chart-card">
     <div class="chart-title">Empenhos × Pagamentos por Mês</div>
-    <div class="chart-wrap"><canvas id="cMes" width="400" height="210"></canvas></div>
-    <div class="chart-legend" id="leg1"></div>
+    <div class="chart-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 230" style="width:100%;height:100%;display:block">
+<line x1="52" y1="180.0" x2="408" y2="180.0" stroke="#e0e4ea" stroke-width="1"/>
+<text x="48" y="183.5" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 0</text>
+<line x1="52" y1="139.0" x2="408" y2="139.0" stroke="#e0e4ea" stroke-width="1"/>
+<text x="48" y="142.5" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 2.8M</text>
+<line x1="52" y1="98.0" x2="408" y2="98.0" stroke="#e0e4ea" stroke-width="1"/>
+<text x="48" y="101.5" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 5.5M</text>
+<line x1="52" y1="57.0" x2="408" y2="57.0" stroke="#e0e4ea" stroke-width="1"/>
+<text x="48" y="60.5" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 8.3M</text>
+<line x1="52" y1="16.0" x2="408" y2="16.0" stroke="#e0e4ea" stroke-width="1"/>
+<text x="48" y="19.5" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 11.0M</text>
+<rect x="83.4" y="143.8" width="19.0" height="36.2" rx="3" fill="rgba(26,110,60,0.82)"/>
+<text x="81.7" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a6474">Jan</text>
+<rect x="120.2" y="37.4" width="19.0" height="142.6" rx="3" fill="rgba(0,45,90,0.82)"/>
+<rect x="142.8" y="138.0" width="19.0" height="42.0" rx="3" fill="rgba(26,110,60,0.82)"/>
+<text x="141.0" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a6474">Fev</text>
+<rect x="202.1" y="137.8" width="19.0" height="42.2" rx="3" fill="rgba(26,110,60,0.82)"/>
+<text x="200.3" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a6474">Mar</text>
+<rect x="238.9" y="84.9" width="19.0" height="95.1" rx="3" fill="rgba(0,45,90,0.82)"/>
+<rect x="261.4" y="137.3" width="19.0" height="42.7" rx="3" fill="rgba(26,110,60,0.82)"/>
+<text x="259.7" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a6474">Abr</text>
+<rect x="298.2" y="154.5" width="19.0" height="25.5" rx="3" fill="rgba(0,45,90,0.82)"/>
+<rect x="320.8" y="137.2" width="19.0" height="42.8" rx="3" fill="rgba(26,110,60,0.82)"/>
+<text x="319.0" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a6474">Mai</text>
+<rect x="357.6" y="132.5" width="19.0" height="47.5" rx="3" fill="rgba(0,45,90,0.82)"/>
+<text x="378.3" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a6474">Jun</text>
+<line x1="52" y1="180" x2="408" y2="180" stroke="#dde1e8" stroke-width="1.5"/>
+<rect x="52" y="216" width="10" height="10" rx="2" fill="#002d5a"/>
+<text x="65" y="224" font-family="Inter,sans-serif" font-size="9.5" fill="#5a6474">Empenho</text>
+<rect x="142" y="216" width="10" height="10" rx="2" fill="#1a6e3c"/>
+<text x="155" y="224" font-family="Inter,sans-serif" font-size="9.5" fill="#5a6474">Pago</text>
+</svg>
+    </div>
   </div>
   <div class="chart-card">
     <div class="chart-title">Composição da Execução</div>
-    <div class="chart-wrap"><canvas id="cComp" width="400" height="210"></canvas></div>
-    <div class="chart-legend" id="leg2"></div>
+    <div class="chart-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 230" style="width:100%;height:100%;display:block">
+<path d="M 210.00 49.00 L 210.00 16.00 A 85 85 0 1 1 188.09 183.13 L 196.59 151.24 A 52 52 0 1 0 210.00 49.00 Z" fill="#1a6e3c" stroke="#fff" stroke-width="2"/>
+<path d="M 196.59 151.24 L 188.09 183.13 A 85 85 0 0 1 132.40 66.30 L 162.53 79.77 A 52 52 0 0 0 196.59 151.24 Z" fill="#b56d00" stroke="#fff" stroke-width="2"/>
+<path d="M 162.53 79.77 L 132.40 66.30 A 85 85 0 0 1 210.00 16.00 L 210.00 49.00 A 52 52 0 0 0 162.53 79.77 Z" fill="#002d5a" stroke="#fff" stroke-width="2"/>
+<text x="210.0" y="96.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#002d5a">54.2%</text>
+<text x="210.0" y="111.0" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">executado</text>
+<rect x="14" y="200" width="10" height="10" rx="2" fill="#1a6e3c"/>
+<text x="27" y="209" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Pago (54.2%)</text>
+<rect x="154" y="200" width="10" height="10" rx="2" fill="#b56d00"/>
+<text x="167" y="209" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Saldo s/ empenho (27.5%)</text>
+<rect x="294" y="200" width="10" height="10" rx="2" fill="#002d5a"/>
+<text x="307" y="209" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Saldo limite emp. (18.3%)</text>
+</svg>
+    </div>
   </div>
   <div class="chart-card">
     <div class="chart-title">Utilização dos Limites Autorizados</div>
-    <div class="chart-wrap"><canvas id="cLim" width="400" height="210"></canvas></div>
-    <div class="chart-legend" id="leg3"></div>
+    <div class="chart-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 230" style="width:100%;height:100%;display:block">
+<line x1="14.0" y1="20" x2="14.0" y2="178" stroke="#e8edf4" stroke-width="1"/>
+<text x="14.0" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 0</text>
+<line x1="112.0" y1="20" x2="112.0" y2="178" stroke="#e8edf4" stroke-width="1"/>
+<text x="112.0" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 6.5M</text>
+<line x1="210.0" y1="20" x2="210.0" y2="178" stroke="#e8edf4" stroke-width="1"/>
+<text x="210.0" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 13.0M</text>
+<line x1="308.0" y1="20" x2="308.0" y2="178" stroke="#e8edf4" stroke-width="1"/>
+<text x="308.0" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 19.6M</text>
+<line x1="406.0" y1="20" x2="406.0" y2="178" stroke="#e8edf4" stroke-width="1"/>
+<text x="406.0" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9aa3b2">R$ 26.1M</text>
+<rect x="14" y="50.0" width="314.0" height="34" rx="4" fill="#002d5a"/>
+<text x="321.0" y="71.0" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="bold" fill="#fff">R$ 20.9M</text>
+<rect x="328.0" y="50.0" width="70.4" height="34" rx="0" fill="#c8d8ea"/>
+<text x="14" y="45.0" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#002d5a">Empenho — 81.7% do limite (R$ 25.6M)</text>
+<rect x="14" y="114.0" width="208.1" height="34" rx="4" fill="#1a6e3c"/>
+<text x="215.1" y="135.0" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9.5" font-weight="bold" fill="#fff">R$ 13.9M</text>
+<rect x="222.1" y="114.0" width="128.2" height="34" rx="0" fill="#b8d8c8"/>
+<text x="14" y="109.0" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#002d5a">Pagamento — 61.9% do limite (R$ 22.4M)</text>
+<rect x="14" y="207" width="9" height="9" rx="2" fill="#002d5a"/>
+<text x="25" y="216" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Empenho realizado</text>
+<rect x="116" y="207" width="9" height="9" rx="2" fill="#c8d8ea"/>
+<text x="127" y="216" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Saldo lim. empenho</text>
+<rect x="218" y="207" width="9" height="9" rx="2" fill="#1a6e3c"/>
+<text x="229" y="216" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Pagamento realizado</text>
+<rect x="320" y="207" width="9" height="9" rx="2" fill="#b8d8c8"/>
+<text x="331" y="216" font-family="Inter,sans-serif" font-size="9" fill="#5a6474">Saldo lim. pagamento</text>
+</svg>
+    </div>
   </div>
 </div>
 
@@ -552,216 +625,13 @@ table.t tr.tfoot-r td:first-child{text-align:left}
   <span id="ft-dt"></span>
 </div>
 
-<style>
-.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;justify-content:center}
-.leg-i{display:flex;align-items:center;gap:5px;font-size:10.5px;color:#5a6474}
-.leg-sq{width:11px;height:11px;border-radius:2px;flex-shrink:0}
-</style>
-
 <script>
-// ── utilitários ──────────────────────────────────────────────────────────────
 const hoje = new Date();
-const dd=String(hoje.getDate()).padStart(2,'0');
-const mm2=String(hoje.getMonth()+1).padStart(2,'0');
-const aa=hoje.getFullYear();
-document.getElementById('hdr-dt').textContent = dd+'/'+mm2+'/'+aa;
-document.getElementById('ft-dt').textContent = 'Gerado em ' +
-  hoje.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
-
-function brlFmt(v){
-  return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-function brlShort(v){
-  if(v>=1e6) return 'R$ '+(v/1e6).toFixed(1)+'M';
-  if(v>=1e3) return 'R$ '+(v/1e3).toFixed(0)+'k';
-  return 'R$ '+v.toFixed(0);
-}
-function lerp(a,b,t){ return a+(b-a)*t; }
-
-// ── GRÁFICO 1 — barras agrupadas ─────────────────────────────────────────────
-(function(){
-  const cv = document.getElementById('cMes');
-  const dpr = window.devicePixelRatio||1;
-  const W = cv.offsetWidth||cv.parentElement.offsetWidth||380;
-  const H = 210;
-  cv.width  = W * dpr; cv.height = H * dpr;
-  cv.style.width = W+'px'; cv.style.height = H+'px';
-  const cx = cv.getContext('2d');
-  cx.scale(dpr,dpr);
-
-  const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
-  const dEmp  = [0, 9593210.73, 0, 6395473.82, 1712040.35, 3197736.91];
-  const dPago = [2437433.04, 2825229.32, 2838747.18, 2871571.63, 2879667.38, 0];
-  const maxV  = Math.max(...dEmp,...dPago) * 1.12;
-
-  const padL=46, padR=10, padT=14, padB=46;
-  const gW = W-padL-padR;
-  const gH = H-padT-padB;
-  const n  = labels.length;
-  const groupW = gW/n;
-  const bW = groupW*0.35;
-  const gap = groupW*0.05;
-
-  // grid linhas
-  cx.strokeStyle='rgba(0,0,0,0.06)'; cx.lineWidth=1;
-  for(let i=0;i<=4;i++){
-    const y = padT + gH*(1-i/4);
-    cx.beginPath(); cx.moveTo(padL,y); cx.lineTo(W-padR,y); cx.stroke();
-    const v = maxV*i/4;
-    cx.fillStyle='#9aa3b2'; cx.font='9px Inter,sans-serif';
-    cx.textAlign='right';
-    cx.fillText(brlShort(v), padL-4, y+3.5);
-  }
-
-  // barras
-  labels.forEach((lbl,i)=>{
-    const x0 = padL + groupW*i + groupW/2 - bW - gap/2;
-    // empenho
-    const hEmp = dEmp[i]/maxV*gH;
-    if(dEmp[i]>0){
-      cx.fillStyle='rgba(0,45,90,0.80)';
-      cx.beginPath();
-      const rx=4;
-      const bx=x0, by=padT+gH-hEmp, bh=hEmp, bww=bW;
-      cx.roundRect(bx,by,bww,bh,[rx,rx,0,0]);
-      cx.fill();
-    }
-    // pago
-    const hPag = dPago[i]/maxV*gH;
-    if(dPago[i]>0){
-      cx.fillStyle='rgba(26,110,60,0.80)';
-      const bx=x0+bW+gap;
-      cx.beginPath();
-      cx.roundRect(bx,padT+gH-hPag,bW,hPag,[4,4,0,0]);
-      cx.fill();
-    }
-    // label eixo x
-    cx.fillStyle='#5a6474'; cx.font='10px Inter,sans-serif'; cx.textAlign='center';
-    cx.fillText(lbl, padL+groupW*i+groupW/2, H-padB+14);
-  });
-
-  // legenda
-  const leg = document.getElementById('leg1');
-  [['rgba(0,45,90,0.80)','Empenho'],['rgba(26,110,60,0.80)','Pago']].forEach(([c,l])=>{
-    leg.innerHTML+=`<div class="leg-i"><div class="leg-sq" style="background:${c}"></div>${l}</div>`;
-  });
-})();
-
-// ── GRÁFICO 2 — doughnut ─────────────────────────────────────────────────────
-(function(){
-  const cv = document.getElementById('cComp');
-  const dpr = window.devicePixelRatio||1;
-  const W = cv.offsetWidth||cv.parentElement.offsetWidth||380;
-  const H = 210;
-  cv.width=W*dpr; cv.height=H*dpr;
-  cv.style.width=W+'px'; cv.style.height=H+'px';
-  const cx = cv.getContext('2d');
-  cx.scale(dpr,dpr);
-
-  const vals   = [13852648.55, 7045813.26, 4683433.47];
-  const colors = ['#1a6e3c', '#b56d00', '#002d5a'];
-  const labels = ['Pago', 'Saldo s/ empenho', 'Saldo limite empenho'];
-  const total  = vals.reduce((a,b)=>a+b,0);
-
-  const cx0=W/2, cy0=H/2-8, R=Math.min(W,H)/2-18, r=R*0.60;
-  let angle = -Math.PI/2;
-
-  vals.forEach((v,i)=>{
-    const sweep = (v/total)*Math.PI*2;
-    cx.beginPath();
-    cx.moveTo(cx0,cy0);
-    cx.arc(cx0,cy0,R,angle,angle+sweep);
-    cx.closePath();
-    cx.fillStyle=colors[i];
-    cx.fill();
-    cx.strokeStyle='#fff'; cx.lineWidth=2; cx.stroke();
-    angle+=sweep;
-  });
-
-  // buraco central
-  cx.beginPath(); cx.arc(cx0,cy0,r,0,Math.PI*2);
-  cx.fillStyle='#fff'; cx.fill();
-
-  // texto central
-  cx.fillStyle='#002d5a'; cx.font='bold 11px Inter,sans-serif'; cx.textAlign='center';
-  cx.fillText(brlShort(total), cx0, cy0+4);
-
-  // legenda
-  const leg = document.getElementById('leg2');
-  vals.forEach((v,i)=>{
-    const pct = (v/total*100).toFixed(1);
-    leg.innerHTML+=`<div class="leg-i"><div class="leg-sq" style="background:${colors[i]}"></div>${labels[i]} (${pct}%)</div>`;
-  });
-})();
-
-// ── GRÁFICO 3 — barras horizontais empilhadas ─────────────────────────────────
-(function(){
-  const cv = document.getElementById('cLim');
-  const dpr = window.devicePixelRatio||1;
-  const W = cv.offsetWidth||cv.parentElement.offsetWidth||380;
-  const H = 210;
-  cv.width=W*dpr; cv.height=H*dpr;
-  cv.style.width=W+'px'; cv.style.height=H+'px';
-  const cx = cv.getContext('2d');
-  cx.scale(dpr,dpr);
-
-  const real  = [20898461.81, 13852648.55];
-  const saldo = [4683433.47, 8531509.82];
-  const rowLbls = ['Empenho\n(Lim: R$ 25,58M)', 'Pagamento\n(Lim: R$ 22,38M)'];
-  const maxV = Math.max(...real.map((v,i)=>v+saldo[i]))*1.05;
-  const colors = [['#002d5a','#c8d8ea'],['#1a6e3c','#b8d8c8']];
-
-  const padL=16, padR=16, padT=16, padB=60;
-  const gW=W-padL-padR;
-  const n=real.length;
-  const bH=32, gap=(H-padT-padB-n*bH)/(n+1);
-
-  real.forEach((rv,i)=>{
-    const y0 = padT + gap*(i+1) + bH*i;
-    const totalW = gW;
-    const rW = rv/maxV*totalW;
-    const sW = saldo[i]/maxV*totalW;
-
-    // barra realizado
-    cx.fillStyle=colors[i][0];
-    cx.beginPath(); cx.roundRect(padL,y0,rW,bH,[4,4,0,0]); cx.fill();
-
-    // valor dentro da barra
-    if(rW>60){
-      cx.fillStyle='#fff'; cx.font='bold 10px IBM Plex Mono,monospace';
-      cx.textAlign='left';
-      cx.fillText(brlShort(rv), padL+8, y0+bH/2+4);
-    }
-
-    // barra saldo
-    cx.fillStyle=colors[i][1];
-    cx.beginPath(); cx.roundRect(padL+rW,y0,sW,bH,[0,4,4,0]); cx.fill();
-
-    // label da linha (multiline)
-    const parts = rowLbls[i].split('\n');
-    cx.fillStyle='#5a6474'; cx.font='10px Inter,sans-serif'; cx.textAlign='left';
-    cx.fillText(parts[0], padL, y0+bH+14);
-    if(parts[1]) cx.fillText(parts[1], padL, y0+bH+26);
-  });
-
-  // eixo X ticks
-  const ticks=4;
-  for(let i=0;i<=ticks;i++){
-    const v=maxV*i/ticks;
-    const x=padL+gW*i/ticks;
-    cx.fillStyle='#9aa3b2'; cx.font='9px Inter,sans-serif'; cx.textAlign='center';
-    cx.fillText(brlShort(v), x, H-8);
-    cx.strokeStyle='rgba(0,0,0,0.05)'; cx.lineWidth=1;
-    cx.beginPath(); cx.moveTo(x,padT); cx.lineTo(x,H-padB+10); cx.stroke();
-  }
-
-  // legenda
-  const leg = document.getElementById('leg3');
-  [['#002d5a','Empenho realizado'],['#c8d8ea','Saldo limite empenho'],
-   ['#1a6e3c','Pagamento realizado'],['#b8d8c8','Saldo limite pagamento']].forEach(([c,l])=>{
-    leg.innerHTML+=`<div class="leg-i"><div class="leg-sq" style="background:${c}"></div>${l}</div>`;
-  });
-})();
+document.getElementById('hdr-dt').textContent =
+  String(hoje.getDate()).padStart(2,'0')+'/'+
+  String(hoje.getMonth()+1).padStart(2,'0')+'/'+hoje.getFullYear();
+document.getElementById('ft-dt').textContent =
+  'Gerado em '+hoje.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
 </script>
 </body>
 </html>
